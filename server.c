@@ -78,13 +78,6 @@ int main(int argc , char * argv[]){
 		int i ;
 			
 		bzero(buffer2, 255);
-		for(i = 0; i < size; i++){
-			buffer2[i] = buffer[1+i];
-		}
-			
-		
-		printf("Message Read: %s\n" , buffer2);
-	
 		
 		if((n = write(connfd, buffer, 255)) < 0)
 			perror("Error on write");		
