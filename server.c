@@ -9,6 +9,7 @@ Server.c
 #include <netinet/in.h>
 #include <unistd.h>
 #include <netdb.h>
+#include <ctype.h>
 
 int open_listenfd(int port){
 	int listenfd;
@@ -63,25 +64,27 @@ int main(int argc , char * argv[]){
 	printf("Address server started\n");
 	
 	while(1){
-		
+		int i;
 		char response[255] ;
 		strcpy(response, "unknown");
 		clientlen = sizeof(clientaddr);
 		connfd = accept(listenfd, (struct sockaddr * ) &clientaddr, &clientlen);
-		if(connfd < 0)printf("Error on accept");		
+		if(connfd < 0){printf("Error on accept");exit(0);	}	
 		bzero(buffer, 255);
 		
 		if(( n = read(connfd, buffer, 255)) < 0)
 			perror("Error on read");
-		
-		int size = (int) buffer[0];
-		int i ;
-			
-		bzero(buffer2, 255);
-		
-		if((n = write(connfd, buffer, 255)) < 0)
-			perror("Error on write");		
-		
+		printf("message recieved: %s\n", buffer);
+		fflush(stdout);
+	
+
+		for(i = 0; i < strlen(buffer); i++){
+			buffer[i] = toupper(buffer[i]);
+		}		
+		if((n = write(connfd, buffer, 255)) < 0){
+			perror("Error on write");
+			exit(0);
+		}
 	}
 	
 	return 0; 

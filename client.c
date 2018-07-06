@@ -57,26 +57,25 @@ int main(int argc, char * argv[]){
 
 	char buf[255];
     while (done == False) {	
-		char msgSend[254];
      		int i;
 		printf(">");
 		bzero(buf, 255);
-		scanf("%s", msgSend);
+		scanf("%s", buf);
 		
-		buf[0] = (char)strlen(msgSend);
-		for(i = 1; i <= strlen(msgSend); i++){
-			buf[i] = msgSend[i-1];
-		}
 	
 		
-		if(strcmp(msgSend,"exit") == 0){
+		if(strcmp(buf,"exit") == 0){
             done = True;
+			puts("Client has exited.");
 			exit(0);
         }
 		else{	
 			clientfd = open_clientfd(host_name, port_num);
 			if( (c = write(clientfd, buf, 255)) < 0)
 				perror("Error writing to socket"); 
+			/*
+			Clear the buffer in order to read it the message as a whole. 
+			*/
 			bzero(buf, 255);
 			if( ( n = read( clientfd, buf, 255)) < 0)
 				perror("Error reading from socket");
