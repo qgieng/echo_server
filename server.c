@@ -11,7 +11,7 @@ Server.c
 #include <netdb.h>
 #include <ctype.h>
 
-int open_listenfd(int port){
+int openListenFD(int port){
 	int listenfd;
 	int optval = 1;
 
@@ -56,17 +56,14 @@ int main(int argc , char * argv[]){
 	char *haddrp;
 	unsigned short client_port;
 	char buffer[255];
-	char buffer2[255];
 	/*port number that will be passed on commandline*/
 	port = atoi(argv[1]);
 
-	listenfd = open_listenfd(port);
+	listenfd = openListenFD(port);
 	printf("Address server started\n");
 	
 	while(1){
 		int i;
-		char response[255] ;
-		strcpy(response, "unknown");
 		clientlen = sizeof(clientaddr);
 		connfd = accept(listenfd, (struct sockaddr * ) &clientaddr, &clientlen);
 		if(connfd < 0){printf("Error on accept");exit(0);	}	

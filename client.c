@@ -12,7 +12,7 @@
 
 typedef enum {False = 0, True = 1} bool;
 
-int open_clientfd(char *hostname, int port)
+int openClientFD(char *hostname, int port)
 {
     int clientfd;
     struct hostent *hp;
@@ -70,7 +70,7 @@ int main(int argc, char * argv[]){
 			exit(0);
         }
 		else{	
-			clientfd = open_clientfd(host_name, port_num);
+			clientfd = openClientFD(host_name, port_num);
 			if( (c = write(clientfd, buf, 255)) < 0)
 				perror("Error writing to socket"); 
 			/*
