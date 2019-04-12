@@ -18,7 +18,6 @@ Client:
 * Console will prompt users for a message and then write the message on the file descriptor that server is on
 * Will accept message from server
 
-Project Status: in progress
 
 
 
